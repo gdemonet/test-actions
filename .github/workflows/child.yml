@@ -1,0 +1,19 @@
+name: "child"
+
+on: workflow_call
+
+jobs:
+  first:
+    runs-on: ubuntu-22.04
+    steps:
+      - run: |
+          echo "::notice:: Job 'first' - attempt ${{ github.run_attempt }}"
+      - run: exit 1
+
+  second:
+    runs-on: ubuntu-22.04
+    needs: [first]
+    if: always()
+    steps:
+      - run: |
+          echo "::notice:: Job 'second' - attempt ${{ github.run_attempt }}"

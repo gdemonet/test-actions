@@ -1,0 +1,18 @@
+name: "main"
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  matrix-call:
+    strategy:
+      fail-fast: false
+      matrix:
+        child: ["matrix"]
+    uses: ./.github/workflows/child.yml
+    name: child(${{ matrix.child }})
+
+  plain-call:
+    uses: ./.github/workflows/child.yml
+    name: child(plain)
